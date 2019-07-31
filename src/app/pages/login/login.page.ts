@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
   async register() {
     await this.presentLoading();
     try {
-      this.db.addUser(this.userRegister['name'], this.userRegister['img']);
+      this.db.addUser(this.userRegister['name'],this.userRegister['email'],this.userRegister['password'], this.userRegister['img']);
     } catch (error) {
       this.presentToast(error.message);
     } finally {

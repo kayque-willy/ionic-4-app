@@ -8,6 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export interface User {
   id: number,
   name: string,
+  email: string,
+  password: string,
   img: string
 }
 
@@ -64,13 +66,15 @@ export class DatabaseService {
   //CRU DO USUARIO
   //Carrega todos os usuários
   loadUsers() {
-    return this.database.executeSql('SELECT * FROM user', []).then(data => {
+    return this.database.executeSql('SELECT id, name, email, img FROM user', []).then(data => {
       let users: User[] = [];
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
           users.push({
             id: data.rows.item(i).id,
             name: data.rows.item(i).name,
+            email: data.rows.item(i).email,
+            password: data.rows.item(i).password,
             img: data.rows.item(i).img
           });
         }
@@ -80,9 +84,9 @@ export class DatabaseService {
   }
 
   // adiciona usuario
-  addUser(name, img) {
-    let data = [name, img];
-    return this.database.executeSql('INSERT INTO user (name, img) VALUES (?, ?)', data).then(data => {
+  addUser(name, email, password, img) {
+    let data = [name, email, password, img];
+    return this.database.executeSql('INSERT INTO user (name, email, password, img) VALUES (?, ?, ?, ?)', data).then(data => {
       this.loadUsers();
     });
   }
@@ -93,6 +97,8 @@ export class DatabaseService {
       return {
         id: data.rows.item(0).id,
         name: data.rows.item(0).name,
+        email: data.rows.item(0).email,
+        password: data.rows.item(0).password,
         img: data.rows.item(0).img
       }
     });
@@ -108,11 +114,12 @@ export class DatabaseService {
 
   // atualiza usuario
   updateUser(user: User) {
-    let data = [user.name, user.img];
-    return this.database.executeSql(`UPDATE user SET name = ?, img = ? WHERE id = ${user.id}`, data).then(data => {
+    let data = [user.name, user.password, user.email, user.img];
+    return this.database.executeSql(`UPDATE user SET name = ?, password = ?,  email = ?, img = ? WHERE id = ${user.id}`, data).then(data => {
       this.loadUsers();
     })
   }
+  
   //CRUD DO PRODUTO
   //Carrega todos os produtos
   loadProducts() {
