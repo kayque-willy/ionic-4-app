@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { User } from './database.service';
+import { User, DatabaseService } from './database.service';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -12,11 +12,18 @@ export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(false);
 
-  constructor() {
-  }
+  constructor(
+    //Banco de dados SQLite
+    private db: DatabaseService
+  ) {}
 
   login(user: User) {
-    this.authenticationState.next(true);
+    if(this.db.login(user)){
+      this.authenticationState.next(true);
+      return true;
+    }else{
+      return false;
+    }
   }
 
   logout() {

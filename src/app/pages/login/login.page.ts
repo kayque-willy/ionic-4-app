@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DatabaseService, User } from 'src/app/services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,14 +19,14 @@ export class LoginPage implements OnInit {
     name: '',
     email: '',
     password: '',
-    img: ''
+    img: '/assets/img/profile.png'
   }
   public userRegister: User= {
     id: null,
     name: '',
     email: '',
     password: '',
-    img: ''
+    img: '/assets/img/profile.png'
   }
   private loading: any;
 
@@ -37,7 +38,9 @@ export class LoginPage implements OnInit {
     //Autenticador do login
     private authService: AuthenticationService,
     //Banco de dados SQLite
-    private db: DatabaseService
+    private db: DatabaseService,
+    //Navegação
+    private router: Router
   ) { }
 
   ngOnInit() { }
@@ -54,12 +57,12 @@ export class LoginPage implements OnInit {
 
   async login() {
     await this.presentLoading();
-    try {
-      this.authService.login(this.userLogin);
-    } catch (error) {
-      this.presentToast(error.message);
-    } finally {
+    if(this.authService.login(this.userLogin)){
       this.loading.dismiss();
+      this.router.navigateByUrl('/home');
+    }else{
+      this.loading.dismiss();
+      this.presentToast("Usuário ou senha inválidos!");
     }
   }
 
@@ -71,6 +74,9 @@ export class LoginPage implements OnInit {
       this.presentToast(error.message);
     } finally {
       this.loading.dismiss();
+      this.presentToast("Cadastro efetuado com sucesso!");
+      this.slides.slidePrev();
+      this.wavesPosition += this.wavesDiference;
     }
   }
 

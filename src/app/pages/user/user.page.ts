@@ -12,12 +12,15 @@ import { ToastController } from '@ionic/angular';
 export class UserPage implements OnInit {
   user: User = null;
   
-  constructor(private route: ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private db: DatabaseService, 
+    private router: Router, 
+    private toast: ToastController) { }
  
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let userId = params.get('id');
- 
       this.db.getUser(userId).then(data => {
         this.user = data;
       });

@@ -1,7 +1,7 @@
 <ion-content class="swiper-no-swiping">
   <!-- Abas do login e do cadastro -->
   <div class="container top">
-    <img src="/assets/img/logo.png">
+    <img class="logo" src="/assets/img/logo.png">
     <ion-segment (ionChange)="segmentChanged($event)" mode="ios" value="login">
       <ion-segment-button mode="ios" value="login">
         <ion-label>Login</ion-label>
@@ -20,11 +20,11 @@
         <span>Login</span>
         
         <ion-item class="ion-margin-top" lines="none">
-          <ion-input type="email" placeholder="E-mail" [value]="userLogin.email"></ion-input>
+          <ion-input type="email" placeholder="E-mail"  [(ngModel)]="userLogin.email"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" lines="none">
-          <ion-input type="password" placeholder="Senha" [value]="userLogin.password"></ion-input>
+          <ion-input type="password" placeholder="Senha"  [(ngModel)]="userLogin.password"></ion-input>
         </ion-item>
 
         <ion-button class="ion-margin-top" (click)="login()" color="light" expand="block">
@@ -39,15 +39,15 @@
         <span>Cadastro</span>
         
         <ion-item class="ion-margin-top" lines="none">
-          <ion-input type="text" placeholder="Nome"  [value]="userRegister.name"></ion-input>
+          <ion-input type="text" placeholder="Nome"   [(ngModel)]="userRegister.name"></ion-input>
         </ion-item>
         
         <ion-item class="ion-margin-top" lines="none">
-          <ion-input type="email" placeholder="E-mail" [value]="userRegister.email"></ion-input>
+          <ion-input type="email" placeholder="E-mail"  [(ngModel)]="userRegister.email"></ion-input>
         </ion-item>
 
         <ion-item class="ion-margin-top" lines="none">
-          <ion-input type="password" placeholder="Senha" [value]="userRegister.password"></ion-input>
+          <ion-input type="password" placeholder="Senha"  [(ngModel)]="userRegister.password"></ion-input>
         </ion-item>
         
         <ion-button class="ion-margin-top" (click)="register()" color="light" expand="block">
