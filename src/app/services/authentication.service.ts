@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { User } from './database.service';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -14,7 +15,7 @@ export class AuthenticationService {
   constructor() {
   }
 
-  login() {
+  login(user: User) {
     this.authenticationState.next(true);
   }
 

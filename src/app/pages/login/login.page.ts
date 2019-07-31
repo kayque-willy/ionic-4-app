@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
   async login() {
     await this.presentLoading();
     try {
-      this.authService.login();
+      this.authService.login(this.userLogin);
     } catch (error) {
       this.presentToast(error.message);
     } finally {
