@@ -15,15 +15,15 @@ export class AuthenticationService {
   constructor(
     //Banco de dados SQLite
     private db: DatabaseService
-  ) {}
+  ) { }
 
   login(user: User) {
-    if(this.db.login(user)){
-      this.authenticationState.next(true);
-      return true;
-    }else{
-      return false;
-    }
+    // if(this.db.login(user)){
+    this.authenticationState.next(true);
+    return true;
+    // }else{
+    //   return false;
+    // }
   }
 
   logout() {

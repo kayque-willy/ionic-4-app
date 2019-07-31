@@ -36,24 +36,24 @@ export class DatabaseService {
         name: 'users.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
-          this.database = db;
-          // this.seedDatabase();
-        });
+        this.database = db;
+        this.seedDatabase();
+      });
     });
   }
 
   //Preenche o banco de dados
   seedDatabase() {
-    // this.http.get('assets/seed.sql', { responseType: 'text' })
-    //   .subscribe(sql => {
-    //     this.sqlitePorter.importSqlToDb(this.database, sql)
-    //       .then(_ => {
-    //         this.loadUsers();
-    //         this.loadProducts();
-    //         this.dbReady.next(true);
-    //       })
-    //       .catch(e => console.error(e));
-    //   });
+    this.http.get('assets/seed.sql', { responseType: 'text' })
+      .subscribe(sql => {
+        this.database.executeSql(sql, [])
+          .then(_ => {
+            this.loadUsers();
+            this.loadProducts();
+            this.dbReady.next(true);
+          })
+          .catch(e => console.error(e));
+      });
   }
 
   getDatabaseState() {
@@ -71,42 +71,42 @@ export class DatabaseService {
   //CRU DO USUARIO
   //Carrega todos os usuários
   loadUsers() {
-    // return this.database.executeSql('SELECT id, name, email, img FROM user', []).then(data => {
-    //   let users: User[] = [];
-    //   if (data.rows.length > 0) {
-    //     for (var i = 0; i < data.rows.length; i++) {
-    //       users.push({
-    //         id: data.rows.item(i).id,
-    //         name: data.rows.item(i).name,
-    //         email: data.rows.item(i).email,
-    //         password: data.rows.item(i).password,
-    //         img: data.rows.item(i).img
-    //       });
-    //     }
-    //   }
-    //   this.users.next(users);
-    // });
+    return this.database.executeSql('SELECT id, name, email, img FROM user', []).then(data => {
+      let users: User[] = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          users.push({
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name,
+            email: data.rows.item(i).email,
+            password: data.rows.item(i).password,
+            img: data.rows.item(i).img
+          });
+        }
+      }
+      this.users.next(users);
+    });
   }
 
   // adiciona usuario
   addUser(name, email, password, img) {
-    // let data = [name, email, password, img];
-    // return this.database.executeSql('INSERT INTO user (name, email, password, img) VALUES (?, ?, ?, ?)', data).then(data => {
-    //   this.loadUsers();
-    // });
+    let data = [name, email, password, img];
+    return this.database.executeSql('INSERT INTO user (name, email, password, img) VALUES (?, ?, ?, ?)', data).then(data => {
+      this.loadUsers();
+    });
   }
 
   // retorna usuario pelo id
   //getUser(id): Promise<User> {
-    // return this.database.executeSql('SELECT * FROM user WHERE id = ?', [id]).then(data => {
-    //   return {
-    //     id: data.rows.item(0).id,
-    //     name: data.rows.item(0).name,
-    //     email: data.rows.item(0).email,
-    //     password: data.rows.item(0).password,
-    //     img: data.rows.item(0).img
-    //   }
-    // });
+  // return this.database.executeSql('SELECT * FROM user WHERE id = ?', [id]).then(data => {
+  //   return {
+  //     id: data.rows.item(0).id,
+  //     name: data.rows.item(0).name,
+  //     email: data.rows.item(0).email,
+  //     password: data.rows.item(0).password,
+  //     img: data.rows.item(0).img
+  //   }
+  // });
   //}
 
   //Verifica o login
