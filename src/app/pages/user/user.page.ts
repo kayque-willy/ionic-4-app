@@ -21,26 +21,26 @@ export class UserPage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let userId = params.get('id');
-      this.db.getUser(userId).then(data => {
-        this.user = data;
-      });
+      // this.db.getUser(userId).then(data => {
+      //   this.user = data;
+      // });
     });
   }
  
   delete() {
-    this.db.deleteUser(this.user.id).then(() => {
-      this.router.navigateByUrl('/');
-    });
+    // this.db.deleteUser(this.user.id).then(() => {
+    //   this.router.navigateByUrl('/');
+    // });
   }
  
   updateUser() {
-    this.db.updateUser(this.user).then(async (res) => {
-      let toast = await this.toast.create({
-        message: 'User updated',
-        duration: 3000
-      });
-      toast.present();
-    });
+    // this.db.updateUser(this.user).then(async (res) => {
+    //   let toast = await this.toast.create({
+    //     message: 'User updated',
+    //     duration: 3000
+    //   });
+    //   toast.present();
+    // });
   }
 
 }

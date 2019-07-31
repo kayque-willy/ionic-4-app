@@ -1,8 +1,8 @@
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-// import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { HttpClient } from '@angular/common/http';
-// import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface User {
@@ -19,7 +19,7 @@ export interface User {
 
 export class DatabaseService {
 
-  // private database: SQLiteObject;
+  private database: SQLiteObject;
   private dbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   users = new BehaviorSubject([]);
@@ -27,18 +27,18 @@ export class DatabaseService {
 
   constructor(
     private plt: Platform,
-    // private sqlitePorter: SQLitePorter,
-    // private sqlite: SQLite,
+    private sqlitePorter: SQLitePorter,
+    private sqlite: SQLite,
     private http: HttpClient
   ) {
     this.plt.ready().then(() => {
-      // this.sqlite.create({
-      //   name: 'users.db',
-      //   location: 'default'
-      // }).then((db: SQLiteObject) => {
-      //     this.database = db;
-      //     this.seedDatabase();
-      //   });
+      this.sqlite.create({
+        name: 'users.db',
+        location: 'default'
+      }).then((db: SQLiteObject) => {
+          this.database = db;
+          // this.seedDatabase();
+        });
     });
   }
 
@@ -97,7 +97,7 @@ export class DatabaseService {
   }
 
   // retorna usuario pelo id
-  // getUser(id): Promise<User> {
+  //getUser(id): Promise<User> {
     // return this.database.executeSql('SELECT * FROM user WHERE id = ?', [id]).then(data => {
     //   return {
     //     id: data.rows.item(0).id,
@@ -107,7 +107,7 @@ export class DatabaseService {
     //     img: data.rows.item(0).img
     //   }
     // });
-  // }
+  //}
 
   //Verifica o login
   login(user: User): any {

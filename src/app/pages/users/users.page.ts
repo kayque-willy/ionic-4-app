@@ -30,17 +30,17 @@ export class UsersPage implements OnInit {
   }
  
   addUser() {
-    this.db.addUser(this.user['name'], this.user['email'], this.user['password'], this.user['img'])
-    .then(_ => { 
-      this.user = {};
-    });
+    // this.db.addUser(this.user['name'], this.user['email'], this.user['password'], this.user['img'])
+    // .then(_ => { 
+    //   this.user = {};
+    // });
   }
  
   addProduct() {
-    this.db.addProduct(this.product['name'], this.product['creator'])
-    .then(_ => {
-      this.product = {};
-    });
+    // this.db.addProduct(this.product['name'], this.product['creator'])
+    // .then(_ => {
+    //   this.product = {};
+    // });
   }
 
 }
