@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Users</ion-title>
+    </ion-toolbar>
+  </ion-header>
+   
+  <ion-content padding>
+   
+    <ion-segment [(ngModel)]="selectedView">
+      <ion-segment-button value="users">
+        <ion-label>User</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="products">
+        <ion-label>Products</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+   
+    <div [ngSwitch]="selectedView">
+      <div *ngSwitchCase="'users'">
+        <ion-item>
+          <ion-label position="stacked">What\'s your name?</ion-label>
+          <ion-input [(ngModel)]="user.name" placeholder="User Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">What are your special skills (comma separated)?</ion-label>
+          <ion-input [(ngModel)]="user.skills" placeholder="Special Skills"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Your image URL</ion-label>
+          <ion-input [(ngModel)]="user.img" placeholder="https://..."></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="addUser()">Add User Info</ion-button>
+   
+        <ion-list>
+          <ion-item button *ngFor="let user of users" [routerLink]="['/', 'users', user.id]">
+            <ion-avatar slot="start">
+              <img [src]="user.img">
+            </ion-avatar>
+            <ion-label>
+              <h2>{{ user.name }}</h2>
+              <p>{{ user.skills }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+   
+      <div *ngSwitchCase="'products'">
+        <ion-item>
+          <ion-label position="stacked">Product name</ion-label>
+          <ion-input [(ngModel)]="product.name" placeholder="Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Creator?</ion-label>
+          <ion-select [(ngModel)]="product.creator">
+            <ion-select-option *ngFor="let user of users" [value]="user.id">{{ user.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button expand="block" (click)="addProduct()">Add Product</ion-button>
+   
+        <ion-list>
+          <ion-item *ngFor="let prod of products | async">
+            <ion-label>
+              <h2>{{ prod.name }}</h2>
+              <p>Created by: {{ prod.creator }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+   
+  </ion-content>

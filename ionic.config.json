@@ -1,5 +1,7 @@
 {
   "name": "surf-shop",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
