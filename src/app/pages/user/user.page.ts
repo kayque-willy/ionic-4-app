@@ -11,8 +11,7 @@ import { ToastController } from '@ionic/angular';
 
 export class UserPage implements OnInit {
   user: User = null;
-  skills = '';
- 
+  
   constructor(private route: ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController) { }
  
   ngOnInit() {
@@ -21,7 +20,6 @@ export class UserPage implements OnInit {
  
       this.db.getUser(userId).then(data => {
         this.user = data;
-        this.skills = this.user.skills.join(',');
       });
     });
   }

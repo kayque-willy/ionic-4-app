@@ -22,10 +22,6 @@
           <ion-input [(ngModel)]="user.name" placeholder="User Name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">What are your special skills (comma separated)?</ion-label>
-          <ion-input [(ngModel)]="user.skills" placeholder="Special Skills"></ion-input>
-        </ion-item>
-        <ion-item>
           <ion-label position="stacked">Your image URL</ion-label>
           <ion-input [(ngModel)]="user.img" placeholder="https://..."></ion-input>
         </ion-item>
@@ -38,7 +34,6 @@
             </ion-avatar>
             <ion-label>
               <h2>{{ user.name }}</h2>
-              <p>{{ user.skills }}</p>
             </ion-label>
           </ion-item>
         </ion-list>

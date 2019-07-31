@@ -29,8 +29,7 @@ export class DatabaseService {
       this.sqlite.create({
         name: 'users.db',
         location: 'default'
-      })
-        .then((db: SQLiteObject) => {
+      }).then((db: SQLiteObject) => {
           this.database = db;
           this.seedDatabase();
         });

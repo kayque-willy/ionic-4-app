@@ -30,8 +30,8 @@ export class UsersPage implements OnInit {
   }
  
   addUser() {
-    this.db.addUser(this.user['name'], this.user['img'])
-    .then(_ => {
+    this.db.addUser(this.user['name'], this.user['email'], this.user['password'], this.user['img'])
+    .then(_ => { 
       this.user = {};
     });
   }

@@ -13,8 +13,20 @@ export class LoginPage implements OnInit {
   @ViewChild(IonSlides, { static: false }) slides: IonSlides;
   public wavesPosition: number = 0;
   public wavesDiference: number = 80;
-  public userLogin: User;
-  public userRegister: User;
+  public userLogin: User = {
+    id: null,
+    name: '',
+    email: '',
+    password: '',
+    img: ''
+  }
+  public userRegister: User= {
+    id: null,
+    name: '',
+    email: '',
+    password: '',
+    img: ''
+  }
   private loading: any;
 
   constructor(
